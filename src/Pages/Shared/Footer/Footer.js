@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="text-center mt-5">
       <p>
-        <small>Copyright @ {new Date().getFullYear()}</small>
+        <small>Copyright &copy; {new Date().getFullYear()}</small>
       </p>
     </footer>
   );
