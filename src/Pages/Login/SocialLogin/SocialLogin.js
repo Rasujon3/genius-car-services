@@ -6,6 +6,7 @@ import {
   useSignInWithFacebook,
   useSignInWithGithub,
   useSignInWithGoogle,
+  useSignInWithTwitter,
 } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import { useNavigate } from "react-router-dom";
@@ -16,12 +17,14 @@ const SocialLogin = () => {
   const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
   const [signInWithFacebook, user2, loading2, error2] =
     useSignInWithFacebook(auth);
+  const [signInWithTwitter, user3, loading3, error3] =
+    useSignInWithTwitter(auth);
   const navigate = useNavigate();
   let errorElement;
-  if (loading || loading1 || loading2) {
+  if (loading || loading1 || loading2 || loading3) {
     return <Loading />;
   }
-  if (error || error1 || error2) {
+  if (error || error1 || error2 || error3) {
     errorElement = (
       <p className="text-danger">
         Error: {error?.message} {error1?.message}
@@ -29,7 +32,7 @@ const SocialLogin = () => {
     );
   }
 
-  if (user || user1 || user2) {
+  if (user || user1 || user2 || user3) {
     navigate("/home");
   }
 
@@ -58,10 +61,17 @@ const SocialLogin = () => {
         </button>
         <button
           onClick={() => signInWithGithub()}
-          className="btn btn-info w-50 d-block mx-auto"
+          className="btn btn-info w-50 d-block mx-auto my-2"
         >
           <img style={{ width: "30px" }} src={github} alt="" />
           <span className="px-2">Github Sign In</span>
+        </button>
+        <button
+          onClick={() => signInWithTwitter()}
+          className="btn btn-info w-50 d-block mx-auto"
+        >
+          <img style={{ width: "30px" }} src={github} alt="" />
+          <span className="px-2">Twitter Sign In</span>
         </button>
       </div>
     </div>
