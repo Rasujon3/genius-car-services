@@ -9,7 +9,7 @@ import {
   useSignInWithTwitter,
 } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../Shared/Loading/Loading";
 
 const SocialLogin = () => {
@@ -20,6 +20,9 @@ const SocialLogin = () => {
   const [signInWithTwitter, user3, loading3, error3] =
     useSignInWithTwitter(auth);
   const navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
   let errorElement;
   if (loading || loading1 || loading2 || loading3) {
     return <Loading />;
@@ -33,7 +36,7 @@ const SocialLogin = () => {
   }
 
   if (user || user1 || user2 || user3) {
-    navigate("/home");
+    navigate(from, { replace: true });
   }
 
   return (
