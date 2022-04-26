@@ -11,7 +11,7 @@ const Order = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getOrders = async () => {
-      const email = user.email;
+      const email = user?.email;
       const url = `https://vast-peak-72310.herokuapp.com/order?email=${email}`;
       try {
         const { data } = await axiosPrivate.get(url);

@@ -11,6 +11,7 @@ import {
 import auth from "../../../firebase.init";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../Shared/Loading/Loading";
+import useToken from "../../../hooks/useToken";
 
 const SocialLogin = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -19,6 +20,7 @@ const SocialLogin = () => {
     useSignInWithFacebook(auth);
   const [signInWithTwitter, user3, loading3, error3] =
     useSignInWithTwitter(auth);
+  const [token] = useToken(user || user1 || user2 || user3);
   const navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -35,7 +37,7 @@ const SocialLogin = () => {
     );
   }
 
-  if (user || user1 || user2 || user3) {
+  if (token) {
     navigate(from, { replace: true });
   }
 
